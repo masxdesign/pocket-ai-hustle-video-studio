@@ -1,0 +1,17 @@
+{
+  "name": "pocket-ai-hustle-video-studio",
+  "version": "1.0.0",
+  "description": "Video production studio for Pocket AI Hustle",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render",
+    "build": "remotion bundle"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.290",
+    "remotion": "4.0.290"
+  },
+  "remotion": {
+    "entryPoint": "src/Root.jsx"
+  }
+}

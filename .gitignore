@@ -1,5 +1,9 @@
 node_modules/
 out/
-public/videos/
-public/audio/
+public/videos/*
+!public/videos/.gitkeep
+public/audio/*
+!public/audio/.gitkeep
+public/images/*
+!public/images/.gitkeep
 .DS_Store

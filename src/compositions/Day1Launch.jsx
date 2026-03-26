@@ -259,11 +259,13 @@ export const Day1Launch = ({ video }) => {
         borderRadius: 3,
       }} />
 
-      {/* Bottom gradient for text legibility — fades in at speed change */}
+      {/* Glass overlay — fades in at speed change */}
       <div style={{
         position: "absolute",
         inset: 0,
-        background: "linear-gradient(to top, rgba(5,8,16,0.95) 35%, rgba(5,8,16,0.1) 100%)",
+        background: "rgba(10, 14, 30, 0.35)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
         opacity: interpolate(
           frame,
           [SPEED_CHANGE_FRAME - CROSSFADE_FRAMES, SPEED_CHANGE_FRAME + CROSSFADE_FRAMES],

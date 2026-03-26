@@ -212,12 +212,14 @@ export const Day1Launch = ({ video }) => {
         borderRadius: 3,
       }} />
 
-      {/* Bottom gradient for text legibility */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        background: "linear-gradient(to top, rgba(5,8,16,0.95) 35%, rgba(5,8,16,0.1) 100%)",
-      }} />
+      {/* Bottom gradient for text legibility — only after frame 84 */}
+      {frame >= 84 && (
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(5,8,16,0.95) 35%, rgba(5,8,16,0.1) 100%)",
+        }} />
+      )}
 
       {/* Sequenced text overlay */}
       <TextOverlay frame={frame} fps={fps} />

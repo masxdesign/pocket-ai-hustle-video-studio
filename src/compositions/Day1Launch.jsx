@@ -12,17 +12,17 @@ import { colors, fonts, neonGlow } from "../shared/brand.js";
 import { idleFloat } from "../shared/animations.js";
 
 // --- Text block timing (frames at 30fps) ---
-// Offset: 84 frames — overlay starts after phone settles
-// Block 1: 94–174   (3.1s–5.8s)
-// Block 2: 154–224  (5.1s–7.5s)  crossfade starts at 154
-// Block 3: 214–284  (7.1s–9.5s)  crossfade starts at 214
-// Block 4: 274–420  (9.1s–14s)   stays until end
+// Offset: 40 frames — overlay starts after phone settles
+// Block 1: 50–130   (1.7s–4.3s)
+// Block 2: 110–180  (3.7s–6s)    crossfade starts at 110
+// Block 3: 170–240  (5.7s–8s)    crossfade starts at 170
+// Block 4: 230–420  (7.7s–14s)   stays until end
 
 const BLOCK_TIMINGS = [
-  { in: 94,  out: 174 },
-  { in: 154, out: 224 },
-  { in: 214, out: 284 },
-  { in: 274, out: 420 },
+  { in: 50,  out: 130 },
+  { in: 110, out: 180 },
+  { in: 170, out: 240 },
+  { in: 230, out: 420 },
 ];
 
 const FADE_DURATION = 18; // frames
@@ -172,7 +172,7 @@ export const TextOverlay = ({ frame, fps }) => {
 // Before frame 84: 5x playbackRate
 // After frame 84:  0.1x playbackRate
 // Two separate <Video> instances, each starting at the right offset
-const SPEED_CHANGE_FRAME = 84;
+const SPEED_CHANGE_FRAME = 40;
 const FAST_RATE = 1.5;
 const SLOW_RATE = 0.1;
 const VIDEO_FRAMES = 240; // 8s × 30fps
@@ -237,8 +237,8 @@ export const Day1Launch = ({ video }) => {
         borderRadius: 3,
       }} />
 
-      {/* Bottom gradient for text legibility — only after frame 84 */}
-      {frame >= 84 && (
+      {/* Bottom gradient for text legibility — only after frame 40 */}
+      {frame >= 40 && (
         <div style={{
           position: "absolute",
           inset: 0,

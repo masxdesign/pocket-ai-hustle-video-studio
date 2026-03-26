@@ -1,6 +1,6 @@
 import {
   AbsoluteFill,
-  OffthreadVideo,
+  Video,
   useCurrentFrame,
   useVideoConfig,
   staticFile,
@@ -168,26 +168,13 @@ export const TextOverlay = ({ frame, fps }) => {
   );
 };
 
-// --- Video time remapping ---
-// Before frame 84: fast (2x speed)
-// After frame 84:  slow (0.1x speed), looped so it never runs out
+// --- Video speed ---
+// Before frame 84: 5x playbackRate
+// After frame 84:  0.1x playbackRate
+// Two separate <Video> instances, each starting at the right offset
 const SPEED_CHANGE_FRAME = 84;
 const FAST_RATE = 5.0;
-const SLOW_RATE = -0.5;
-const VIDEO_DURATION = 8; // seconds — day1-launch.mp4
-
-function remapVideoTime(frame, fps) {
-  let time;
-  if (frame <= SPEED_CHANGE_FRAME) {
-    time = (frame * FAST_RATE) / fps;
-  } else {
-    const fastSeconds = (SPEED_CHANGE_FRAME * FAST_RATE) / fps;
-    const slowSeconds = ((frame - SPEED_CHANGE_FRAME) * SLOW_RATE) / fps;
-    time = fastSeconds + slowSeconds;
-  }
-  // Loop within video duration, handling negative (reverse) time
-  return ((time % VIDEO_DURATION) + VIDEO_DURATION) % VIDEO_DURATION;
-}
+const SLOW_RATE = 0.1;
 
 // --- Main Day1Launch composition ---
 export const Day1Launch = ({ video }) => {
@@ -200,13 +187,29 @@ export const Day1Launch = ({ video }) => {
   return (
     <AbsoluteFill style={{ backgroundColor: colors.background }}>
 
-      {/* Background video — fast before frame 84, slow after */}
+      {/* Background video — fast before frame 84 */}
       {video && (
-        <OffthreadVideo
-          src={staticFile(`videos/${video}`)}
-          time={remapVideoTime(frame, fps)}
-          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
-        />
+        <Sequence from={0} durationInFrames={SPEED_CHANGE_FRAME}>
+          <Video
+            src={staticFile(`videos/${video}`)}
+            playbackRate={FAST_RATE}
+            loop
+            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
+          />
+        </Sequence>
+      )}
+
+      {/* Background video — slow after frame 84, starts where fast left off */}
+      {video && (
+        <Sequence from={SPEED_CHANGE_FRAME}>
+          <Video
+            src={staticFile(`videos/${video}`)}
+            playbackRate={SLOW_RATE}
+            startFrom={Math.round(SPEED_CHANGE_FRAME * FAST_RATE)}
+            loop
+            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
+          />
+        </Sequence>
       )}
 
       {/* Left magenta neon bar */}

@@ -172,8 +172,8 @@ export const TextOverlay = ({ frame, fps }) => {
 // Before frame 84: fast (2x speed)
 // After frame 84:  slow (0.1x speed), looped so it never runs out
 const SPEED_CHANGE_FRAME = 84;
-const FAST_RATE = 4.0;
-const SLOW_RATE = 0.1;
+const FAST_RATE = 5.0;
+const SLOW_RATE = -0.5;
 const VIDEO_DURATION = 8; // seconds — day1-launch.mp4
 
 function remapVideoTime(frame, fps) {
@@ -185,8 +185,8 @@ function remapVideoTime(frame, fps) {
     const slowSeconds = ((frame - SPEED_CHANGE_FRAME) * SLOW_RATE) / fps;
     time = fastSeconds + slowSeconds;
   }
-  // Loop within video duration so it never freezes at the end
-  return time % VIDEO_DURATION;
+  // Loop within video duration, handling negative (reverse) time
+  return ((time % VIDEO_DURATION) + VIDEO_DURATION) % VIDEO_DURATION;
 }
 
 // --- Main Day1Launch composition ---

@@ -87,15 +87,17 @@ export const TextOverlay = ({ frame, fps }) => {
 
   return (
     <AbsoluteFill style={{
-      justifyContent: "flex-end",
-      padding: "0 64px 120px 64px",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "0 64px",
     }}>
       {/* Block 1 — launch announcement */}
-      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[0]} style={{ bottom: 200 }}>
+      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[0]} style={{ left: 64, right: 64, textAlign: "center" }}>
         <div style={{
           ...baseText,
           fontSize: 80,
           textShadow: heroGlow,
+          textAlign: "center",
         }}>
           We just launched.{"\n"}
           <span style={{ color: colors.heroGlow }}>
@@ -106,12 +108,13 @@ export const TextOverlay = ({ frame, fps }) => {
       </TextBlock>
 
       {/* Block 2 — transformation */}
-      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[1]} style={{ bottom: 200 }}>
+      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[1]} style={{ left: 64, right: 64, textAlign: "center" }}>
         <div style={{
           ...baseText,
           fontSize: 66,
           color: colors.textSecondary,
           textShadow: `0 0 20px ${colors.neonLeft}60`,
+          textAlign: "center",
         }}>
           From{" "}
           <span style={{ color: colors.textPrimary, fontStyle: "italic" }}>
@@ -125,18 +128,19 @@ export const TextOverlay = ({ frame, fps }) => {
       </TextBlock>
 
       {/* Block 3 — no barriers */}
-      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[2]} style={{ bottom: 200 }}>
+      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[2]} style={{ left: 64, right: 64, textAlign: "center" }}>
         <div style={{
           ...baseText,
           fontSize: 76,
           textShadow: `0 0 30px ${colors.neonRight}60`,
+          textAlign: "center",
         }}>
           No coding.{"\n"}No tech background required.
         </div>
       </TextBlock>
 
       {/* Block 4 — CTA with glassmorphism */}
-      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[3]} style={{ bottom: 80, left: 0, right: 0, padding: "0 64px" }}>
+      <TextBlock frame={frame} fps={fps} timing={BLOCK_TIMINGS[3]} style={{ left: 64, right: 64 }}>
         <div style={{
           background: "rgba(5, 8, 16, 0.55)",
           backdropFilter: "blur(16px)",
@@ -144,6 +148,7 @@ export const TextOverlay = ({ frame, fps }) => {
           border: `1px solid ${colors.neonRight}30`,
           borderRadius: 24,
           padding: "36px 44px",
+          textAlign: "center",
         }}>
           <div style={{
             ...baseText,

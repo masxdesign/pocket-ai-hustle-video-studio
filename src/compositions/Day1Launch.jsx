@@ -172,7 +172,7 @@ export const TextOverlay = ({ frame, fps }) => {
 // Before frame 84: fast (2x speed)
 // After frame 84:  slow (0.1x speed), looped so it never runs out
 const SPEED_CHANGE_FRAME = 84;
-const FAST_RATE = 2.0;
+const FAST_RATE = 4.0;
 const SLOW_RATE = 0.1;
 const VIDEO_DURATION = 8; // seconds — day1-launch.mp4
 

@@ -176,7 +176,7 @@ const SPEED_CHANGE_FRAME = 50;
 const FAST_RATE = 1.5;
 const SLOW_RATE = 0.5;
 const VIDEO_FRAMES = 240; // 8s × 30fps
-const CROSSFADE_FRAMES = 30; // 1s crossfade between fast and slow
+const CROSSFADE_FRAMES = 5;
 
 // --- Main Day1Launch composition ---
 export const Day1Launch = ({ video }) => {

@@ -174,7 +174,7 @@ export const TextOverlay = ({ frame, fps }) => {
 // Two separate <Video> instances, each starting at the right offset
 const SPEED_CHANGE_FRAME = 40;
 const FAST_RATE = 1.5;
-const SLOW_RATE = 0.1;
+const SLOW_RATE = 0.5;
 const VIDEO_FRAMES = 240; // 8s × 30fps
 
 // --- Main Day1Launch composition ---

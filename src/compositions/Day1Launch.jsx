@@ -173,7 +173,7 @@ export const TextOverlay = ({ frame, fps }) => {
 // After frame 84:  slow (0.5x speed)
 const SPEED_CHANGE_FRAME = 84;
 const FAST_RATE = 2.0;
-const SLOW_RATE = 0.5;
+const SLOW_RATE = 0.1;
 
 function remapVideoTime(frame, fps) {
   if (frame <= SPEED_CHANGE_FRAME) {

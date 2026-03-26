@@ -175,6 +175,7 @@ export const TextOverlay = ({ frame, fps }) => {
 const SPEED_CHANGE_FRAME = 84;
 const FAST_RATE = 4.0;
 const SLOW_RATE = 0.1;
+const VIDEO_FRAMES = 240; // 8s × 30fps
 
 // --- Main Day1Launch composition ---
 export const Day1Launch = ({ video }) => {
@@ -205,7 +206,7 @@ export const Day1Launch = ({ video }) => {
           <Video
             src={staticFile(`videos/${video}`)}
             playbackRate={SLOW_RATE}
-            startFrom={Math.round(SPEED_CHANGE_FRAME * FAST_RATE)}
+            startFrom={Math.round(SPEED_CHANGE_FRAME * FAST_RATE) % VIDEO_FRAMES}
             loop
             style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
           />

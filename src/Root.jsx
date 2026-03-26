@@ -19,7 +19,7 @@ export const RemotionRoot = () => {
       <Composition
         id="LaunchDay1"
         component={Day1Launch}
-        durationInFrames={FPS * 10}
+        durationInFrames={420}
         fps={FPS}
         width={1080}
         height={1920}

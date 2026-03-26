@@ -12,16 +12,17 @@ import { colors, fonts, neonGlow } from "../shared/brand.js";
 import { idleFloat } from "../shared/animations.js";
 
 // --- Text block timing (frames at 30fps) ---
-// Block 1: 0–90    (0s–3s)
-// Block 2: 70–150  (2.3s–5s)   crossfade starts at 70
-// Block 3: 130–210 (4.3s–7s)   crossfade starts at 130
-// Block 4: 190–300 (6.3s–10s)  stays until end
+// Offset: 84 frames — overlay starts after phone settles
+// Block 1: 94–174   (3.1s–5.8s)
+// Block 2: 154–224  (5.1s–7.5s)  crossfade starts at 154
+// Block 3: 214–284  (7.1s–9.5s)  crossfade starts at 214
+// Block 4: 274–420  (9.1s–14s)   stays until end
 
 const BLOCK_TIMINGS = [
-  { in: 10,  out: 80  },
-  { in: 70,  out: 140 },
-  { in: 130, out: 200 },
-  { in: 190, out: 300 },
+  { in: 94,  out: 174 },
+  { in: 154, out: 224 },
+  { in: 214, out: 284 },
+  { in: 274, out: 420 },
 ];
 
 const FADE_DURATION = 18; // frames

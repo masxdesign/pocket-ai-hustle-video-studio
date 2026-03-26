@@ -176,6 +176,7 @@ const SPEED_CHANGE_FRAME = 40;
 const FAST_RATE = 1.5;
 const SLOW_RATE = 0.5;
 const VIDEO_FRAMES = 240; // 8s × 30fps
+const CROSSFADE_FRAMES = 10; // 10 frame crossfade between fast and slow
 
 // --- Main Day1Launch composition ---
 export const Day1Launch = ({ video }) => {
@@ -188,27 +189,43 @@ export const Day1Launch = ({ video }) => {
   return (
     <AbsoluteFill style={{ backgroundColor: colors.background }}>
 
-      {/* Background video — fast before frame 84 */}
+      {/* Background video — fast, fades out over crossfade window */}
       {video && (
-        <Sequence from={0} durationInFrames={SPEED_CHANGE_FRAME}>
+        <Sequence from={0} durationInFrames={SPEED_CHANGE_FRAME + CROSSFADE_FRAMES}>
           <Video
             src={staticFile(`videos/${video}`)}
             playbackRate={FAST_RATE}
             loop
-            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
+            style={{
+              width: "100%", height: "100%", objectFit: "cover",
+              opacity: interpolate(
+                frame,
+                [SPEED_CHANGE_FRAME, SPEED_CHANGE_FRAME + CROSSFADE_FRAMES],
+                [0.8, 0],
+                { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+              ),
+            }}
           />
         </Sequence>
       )}
 
-      {/* Background video — slow after frame 84, starts where fast left off */}
+      {/* Background video — slow, fades in over crossfade window */}
       {video && (
-        <Sequence from={SPEED_CHANGE_FRAME}>
+        <Sequence from={SPEED_CHANGE_FRAME - CROSSFADE_FRAMES}>
           <Video
             src={staticFile(`videos/${video}`)}
             playbackRate={SLOW_RATE}
             startFrom={Math.round(SPEED_CHANGE_FRAME * FAST_RATE) % VIDEO_FRAMES}
             loop
-            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
+            style={{
+              width: "100%", height: "100%", objectFit: "cover",
+              opacity: interpolate(
+                frame,
+                [SPEED_CHANGE_FRAME - CROSSFADE_FRAMES, SPEED_CHANGE_FRAME],
+                [0, 0.8],
+                { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+              ),
+            }}
           />
         </Sequence>
       )}
@@ -237,14 +254,18 @@ export const Day1Launch = ({ video }) => {
         borderRadius: 3,
       }} />
 
-      {/* Bottom gradient for text legibility — only after frame 40 */}
-      {frame >= 40 && (
-        <div style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to top, rgba(5,8,16,0.95) 35%, rgba(5,8,16,0.1) 100%)",
-        }} />
-      )}
+      {/* Bottom gradient for text legibility — fades in at speed change */}
+      <div style={{
+        position: "absolute",
+        inset: 0,
+        background: "linear-gradient(to top, rgba(5,8,16,0.95) 35%, rgba(5,8,16,0.1) 100%)",
+        opacity: interpolate(
+          frame,
+          [SPEED_CHANGE_FRAME - CROSSFADE_FRAMES, SPEED_CHANGE_FRAME + CROSSFADE_FRAMES],
+          [0, 1],
+          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+        ),
+      }} />
 
       {/* Sequenced text overlay */}
       <TextOverlay frame={frame} fps={fps} />

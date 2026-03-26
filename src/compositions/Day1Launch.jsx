@@ -12,17 +12,17 @@ import { colors, fonts, neonGlow } from "../shared/brand.js";
 import { idleFloat } from "../shared/animations.js";
 
 // --- Text block timing (frames at 30fps) ---
-// Offset: 40 frames — overlay starts after phone settles
-// Block 1: 50–130   (1.7s–4.3s)
-// Block 2: 110–180  (3.7s–6s)    crossfade starts at 110
-// Block 3: 170–240  (5.7s–8s)    crossfade starts at 170
-// Block 4: 230–420  (7.7s–14s)   stays until end
+// Offset: 45 frames — text starts 5 frames before speed change (50)
+// Block 1: 45–125
+// Block 2: 105–175
+// Block 3: 165–235
+// Block 4: 225–420
 
 const BLOCK_TIMINGS = [
-  { in: 50,  out: 130 },
-  { in: 110, out: 180 },
-  { in: 170, out: 240 },
-  { in: 230, out: 420 },
+  { in: 45,  out: 125 },
+  { in: 105, out: 175 },
+  { in: 165, out: 235 },
+  { in: 225, out: 420 },
 ];
 
 const FADE_DURATION = 18; // frames
@@ -268,7 +268,7 @@ export const Day1Launch = ({ video }) => {
         WebkitBackdropFilter: "blur(12px)",
         opacity: interpolate(
           frame,
-          [SPEED_CHANGE_FRAME - CROSSFADE_FRAMES, SPEED_CHANGE_FRAME + CROSSFADE_FRAMES],
+          [SPEED_CHANGE_FRAME - CROSSFADE_FRAMES - 5, SPEED_CHANGE_FRAME + CROSSFADE_FRAMES - 5],
           [0, 1],
           { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
         ),

@@ -178,7 +178,7 @@ export const TextOverlay = ({ frame, fps }) => {
 // After frame 84:  0.1x playbackRate
 // Two separate <Video> instances, each starting at the right offset
 const SPEED_CHANGE_FRAME = 50;
-const FAST_RATE = 1.5;
+const FAST_RATE = 2.0;
 const SLOW_RATE = 0.5;
 const VIDEO_FRAMES = 240; // 8s × 30fps
 const CROSSFADE_FRAMES = 5;

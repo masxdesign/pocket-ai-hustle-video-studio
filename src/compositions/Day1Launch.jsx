@@ -1,6 +1,6 @@
 import {
   AbsoluteFill,
-  Video,
+  OffthreadVideo,
   useCurrentFrame,
   useVideoConfig,
   staticFile,
@@ -168,6 +168,22 @@ export const TextOverlay = ({ frame, fps }) => {
   );
 };
 
+// --- Video time remapping ---
+// Before frame 84: fast (2x speed)
+// After frame 84:  slow (0.5x speed)
+const SPEED_CHANGE_FRAME = 84;
+const FAST_RATE = 2.0;
+const SLOW_RATE = 0.5;
+
+function remapVideoTime(frame, fps) {
+  if (frame <= SPEED_CHANGE_FRAME) {
+    return (frame * FAST_RATE) / fps;
+  }
+  const fastSeconds = (SPEED_CHANGE_FRAME * FAST_RATE) / fps;
+  const slowSeconds = ((frame - SPEED_CHANGE_FRAME) * SLOW_RATE) / fps;
+  return fastSeconds + slowSeconds;
+}
+
 // --- Main Day1Launch composition ---
 export const Day1Launch = ({ video }) => {
   const frame = useCurrentFrame();
@@ -179,11 +195,11 @@ export const Day1Launch = ({ video }) => {
   return (
     <AbsoluteFill style={{ backgroundColor: colors.background }}>
 
-      {/* Background video */}
+      {/* Background video — fast before frame 84, slow after */}
       {video && (
-        <Video
+        <OffthreadVideo
           src={staticFile(`videos/${video}`)}
-          loop
+          time={remapVideoTime(frame, fps)}
           style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }}
         />
       )}
